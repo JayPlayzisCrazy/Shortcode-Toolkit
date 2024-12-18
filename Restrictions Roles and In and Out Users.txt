@@ -19,7 +19,7 @@ add_shortcode('logged_in', 'restrict_to_logged_in_users');
 Shortcode: [logged_in]Content visible only to logged-in users.[/logged_in]
 
 
-====================================================================
+==========================NEXT==SECTION========================================
 
 
 
@@ -44,7 +44,7 @@ add_shortcode('logged_out', 'restrict_to_logged_out_users');
 Shortcode: [logged_out]Content visible only to logged-out users.[/logged_out]
 
 
-====================================================================
+=======================NEXT==SECTION===========================================
 
 
 */Shortcode for Role-Based Restriction/*
