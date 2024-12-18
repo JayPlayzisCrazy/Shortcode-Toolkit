@@ -1,0 +1,75 @@
+*/Shortcode for username display/*
+
+Add this code to functions.php file
+
+/* Geeks for Geeks */
+
+function display_current_username() {
+    if (is_user_logged_in()) {
+        $current_user = wp_get_current_user();
+        return esc_html($current_user->user_login);
+    } else {
+        return 'Guest';
+    }
+}
+add_shortcode('username', 'display_current_username');
+
+/* Geeks for Geeks */
+
+
+===============
+Shortcode: [username]
+
+
+====================================================================
+
+
+
+*/Add Custom Shortcode for Profile Picture/*
+
+Add this code to functions.php file
+
+/* Geeks for Geeks */
+
+function display_user_profile_picture($atts) {
+    if (is_user_logged_in()) {
+        $current_user = wp_get_current_user();
+
+        // Parse the attributes
+        $atts = shortcode_atts(
+            array(
+                'size' => 96, // Default size
+                'alt' => 'Profile Picture', // Default alt text
+            ),
+            $atts
+        );
+
+        // Get the Gravatar URL
+        $profile_picture = get_avatar_url($current_user->ID, array('size' => $atts['size']));
+
+        // Return the HTML for the profile picture
+        return '<img src="' . esc_url($profile_picture) . '" alt="' . esc_attr($atts['alt']) . '" width="' . esc_attr($atts['size']) . '" height="' . esc_attr($atts['size']) . '">';
+    } else {
+        return 'Guest User';
+    }
+}
+add_shortcode('profile_picture', 'display_user_profile_picture');
+
+/* Geeks for Geeks */
+
+
+===============
+Shortcode: [profile_picture]
+
+Customizing the Shortcode
+The shortcode accepts optional attributes:
+
+Size: Sets the size of the profile picture (default is 96 pixels).
+Example: [profile_picture size="150"]
+
+alt: Sets the alt text for the image.
+Example: [profile_picture alt="User's profile picture"]
+
+
+
+© 2025 Geeks for Geeks. All rights reserved.

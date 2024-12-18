@@ -1,0 +1,90 @@
+*/Shortcode for Logged-in Users/*
+
+Add this code to functions.php file
+
+/* Geeks for Geeks */
+
+function restrict_to_logged_in_users($atts, $content = null) {
+    if (is_user_logged_in()) {
+        return do_shortcode($content);
+    }
+    return '<p></p>';
+}
+add_shortcode('logged_in', 'restrict_to_logged_in_users');
+
+/* Geeks for Geeks */
+
+
+===============
+Shortcode: [logged_in]Content visible only to logged-in users.[/logged_in]
+
+
+====================================================================
+
+
+
+*/Shortcode for Logged-out Users/*
+
+Add this code to functions.php file
+
+/* Geeks for Geeks */
+
+function restrict_to_logged_out_users($atts, $content = null) {
+    if (!is_user_logged_in()) {
+        return do_shortcode($content);
+    }
+    return '<p></p>';
+}
+add_shortcode('logged_out', 'restrict_to_logged_out_users');
+
+/* Geeks for Geeks */
+
+
+===============
+Shortcode: [logged_out]Content visible only to logged-out users.[/logged_out]
+
+
+====================================================================
+
+
+*/Shortcode for Role-Based Restriction/*
+
+Add this code to functions.php file
+
+/* Geeks for Geeks */
+
+function restrict_content_by_role($atts, $content = null) {
+    // Extract attributes, default role is 'subscriber'
+    $atts = shortcode_atts(array(
+        'role' => 'subscriber',
+    ), $atts, 'restrict_by_role');
+
+    // Get the current user's roles
+    if (is_user_logged_in()) {
+        $user = wp_get_current_user();
+        if (in_array($atts['role'], (array) $user->roles)) {
+            return do_shortcode($content); // Show content if the role matches
+        }
+    }
+
+    // Message for unauthorized users
+    return '<p>You do not have permission to view this content.</p>';
+}
+add_shortcode('restrict_by_role', 'restrict_content_by_role');
+
+/* Geeks for Geeks */
+
+
+===============
+Shortcode: [restrict_by_role role="administrator"]This content is for administrators only.[/restrict_by_role]
+
+Explanation:
+1. The shortcode takes an attribute role (e.g., administrator, editor, subscriber).
+2. It checks if the logged-in user's role matches the specified role.
+3. If there's a match, the content inside the shortcode is displayed.
+4. Otherwise, a default "no permission" message is shown.
+
+====================================================================
+
+
+© 2025 Geeks for Geeks. All rights reserved.
