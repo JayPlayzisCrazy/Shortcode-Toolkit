@@ -1,0 +1,28 @@
+*/Adding the Logout Link with a Shortcode/*
+
+Add this code to functions.php file
+
+/* Geeks for Geeks */
+
+function custom_logout_link($atts) {
+    $atts = shortcode_atts(array(
+        'redirect' => home_url(), // Default redirect is the homepage
+    ), $atts);
+
+    // Generate the logout URL with the redirect parameter
+    $logout_url = wp_logout_url($atts['redirect']);
+    
+    return '<a href="' . esc_url($logout_url) . '">Logout</a>';
+}
+add_shortcode('logout_link', 'custom_logout_link');
+
+/* Geeks for Geeks */
+
+
+===============
+Shortcode: [logout_link]
+Shortcode with redirect link: [logout_link redirect="https://yourwebsite.com/custom-page"]
+
+
+
+© 2025 Geeks for Geeks. All rights reserved.
