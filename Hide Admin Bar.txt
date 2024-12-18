@@ -1,0 +1,55 @@
+*/Hide Admin Bar for Specific Roles/*
+
+Add this code to functions.php file
+
+/* Geeks for Geeks */
+
+function hide_admin_bar_based_on_roles() {
+    // List of roles to hide the admin bar for
+    $roles_to_hide = array('subscriber', 'editor', 'author'); // Add roles as needed
+
+    // Check if the logged-in user has one of the specified roles
+    if (is_user_logged_in()) {
+        $user = wp_get_current_user();
+        foreach ($roles_to_hide as $role) {
+            if (in_array($role, (array) $user->roles)) {
+                show_admin_bar(false); // Hide the admin bar
+                return;
+            }
+        }
+    }
+}
+add_action('after_setup_theme', 'hide_admin_bar_based_on_roles');
+
+/* Geeks for Geeks */
+
+Customizing the Roles Example: $roles_to_hide = array('subscriber');
+
+===============
+Shortcode: No shortcode required.
+
+==============================NEXT==SECTION====================================
+
+*/Hide Admin Bar for All Users Except Administrators/*
+
+Add this code to functions.php file
+
+/* Geeks for Geeks */
+
+function hide_admin_bar_for_non_admins() {
+    if (!current_user_can('administrator') && !is_admin()) {
+        show_admin_bar(false);
+    }
+}
+add_action('after_setup_theme', 'hide_admin_bar_for_non_admins');
+
+/* Geeks for Geeks */
+
+======DETAILS=========
+Shortcode: No shortcode required.
+Testing: -Log in with different user roles (e.g., Subscriber, Editor, etc.).
+	 - Verify that the admin bar is hidden for the roles specified and still visible for 	   administrators.
+
+
+
+© 2025 Geeks for Geeks. All rights reserved.
